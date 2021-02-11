@@ -1,0 +1,23 @@
+{
+  "name": "test-projectql",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/8mecem8/GrahpQL-test-project.git"
+  },
+  "author": "MECEM",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/8mecem8/GrahpQL-test-project/issues"
+  },
+  "homepage": "https://github.com/8mecem8/GrahpQL-test-project#readme",
+  "dependencies": {
+    "apollo-server": "^2.20.0",
+    "graphql": "^15.5.0"
+  }
+}
