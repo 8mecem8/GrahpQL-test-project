@@ -1,4 +1,5 @@
-const { ApolloServer, gql } = require('apollo-server')
+const { ApolloServer, gql } = require('apollo-server');
+const { TypeInfo } = require('graphql');
 const { v4: uuidv4 } = require('uuid');
 
 let authors = [
@@ -95,11 +96,11 @@ type Authors {
 
 
 type Books {
-    title: String!
-    published: Int!
-    author: String!
-    id: ID!
-    genres: [String!]
+    title: String
+    published: Int
+    author: String
+    id: ID
+    genres: [String]
   }
 
 type Mutation {
@@ -130,8 +131,12 @@ const resolvers = {
   Query: {
     bookCount: () => books.length,
     authorCount: () => authors.length,
-    allBooks: (_, arg) => {
-      
+    allBooks:()=> books,
+    /* allBooks: (_, arg) => {
+              if(arg.constructor === Object){ return () => books}
+                  console.log('arg is ====', arg.constructor === Object)
+
+
               a= books.filter(at => at.author === arg.author)
               b= books.filter(at => at.genres.includes(arg.genre))
       if(arg.author){return a}
@@ -139,7 +144,7 @@ const resolvers = {
       if(arg.genre || arg.author) {return a.filter(at => at.genres.includes(arg.genre))}
 
     
-    },
+    }, */
     allAuthors: () =>
       authors.map(at => ({
         name: at.name,
