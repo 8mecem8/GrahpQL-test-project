@@ -18,11 +18,17 @@
   },
   "homepage": "https://github.com/8mecem8/GrahpQL-test-project#readme",
   "dependencies": {
-    "apollo-server": "^2.20.0",
+    "@types/mongoose": "^5.10.3",
+    "apollo-server": "^2.21.0",
+    "dotenv": "^8.2.0",
     "graphql": "^15.5.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.11.17",
+    "mongoose-unique-validator": "^2.0.3",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "@babel/core": "^7.13.1",
     "nodemon": "^2.0.7"
   }
 }

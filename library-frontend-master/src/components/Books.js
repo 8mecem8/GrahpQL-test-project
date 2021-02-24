@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useState, useEffect} from 'react'
 import { gql, useQuery } from '@apollo/client'
+
 
 
 const ALL_BOOKS = gql`
@@ -8,15 +9,86 @@ const ALL_BOOKS = gql`
                 title
                 published
                 author
+                genres
         }
     }
 
 
 `
 
+
+
+
+
+
+const GenreButtons = ({ books, updateFilter }) => {
+    let genres = []
+
+    books.forEach(book => {
+        for (var i in book.genres) {
+            if (!genres.includes(book.genres[i])) {
+                genres.push(book.genres[i])
+            }
+        }
+    })
+
+    return (<div>
+        <button onClick={() => updateFilter(null)}>all genres</button>
+        {
+            genres.map(genre => <button
+                onClick={() => updateFilter(genre)}
+                key={genre}>{genre}</button>)
+        }
+    </div>)
+}
+
+
+
+
+
+
+
 const Books = (props) => {
+  const [filterBy, setFilterBy] = useState(null)
+  const [books, setBooks] = useState([])
   const result = useQuery(ALL_BOOKS)
-    console.log(' ALL_BOOKS result is in app component',result)
+   // console.log(' ALL_BOOKS result is in app component',result)
+
+
+
+
+ useEffect(() => {
+        if (!result.data?.allBooks) return
+        switch (filterBy) {
+            case null:
+                setBooks(result.data.allBooks)
+                break
+            default:
+                setBooks(applyFilter(filterBy))
+        }
+
+    }, [result.data?.allBooks, filterBy])
+
+
+
+const applyFilter = (filter) => {
+        return result.data.allBooks.filter(book => {
+            return book.genres.includes(filter)
+        })
+    }
+
+    const updateFilter = (genre) => {
+        setFilterBy(genre)
+    }
+
+
+
+
+
+
+
+
+
 
 
 
@@ -24,8 +96,8 @@ const Books = (props) => {
     return null
   }
 
-  const books = result.data.allBooks
-
+  const abooks = result.data.allBooks
+console.log('result.data.allBooks is ===>', result.data.allBooks)
   return (
     <div>
       <h2>books</h2>
@@ -41,7 +113,7 @@ const Books = (props) => {
               published
             </th>
           </tr>
-          {books.map(a =>
+          {abooks.map(a =>
             <tr key={a.title}>
               <td>{a.title}</td>
               <td>{a.author}</td>
@@ -50,6 +122,9 @@ const Books = (props) => {
           )}
         </tbody>
       </table>
+
+      <GenreButtons books={abooks} updateFilter={updateFilter} />
+
     </div>
   )
 }
