@@ -12,7 +12,7 @@ const token = localStorage.getItem('user-token')
 
 
 const client = new ApolloClient({
-   cache: new InMemoryCache(), link : new HttpLink({uri:'http://127.0.0.1:4000/'})    /* http://localhost:4000 */,headers: {Authorization: token ? `bearer ${token}` : null}
+   cache: new InMemoryCache(), link : new HttpLink({uri:'http://127.0.0.1:4000/'})    /* http://localhost:4000 */,headers: {Authorization: token ? `bearer ${token} : null}
 })
 
 
